@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurumsal Web Sitesi Modeli | Toys e-Big</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #f9fafb; color: #1f2937; line-height: 1.6; }
+        
+        /* Demo Bar */
+        .demo-bar { background: #1f2937; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-size: 0.9rem; }
+        .demo-bar a { color: white; text-decoration: none; padding: 6px 16px; background: #374151; border-radius: 4px; transition: 0.2s; }
+        .demo-bar a:hover { background: #4b5563; }
+        .demo-bar .badge { background: #10b981; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Header */
+        header { background: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; display: flex; align-items: center; gap: 8px;}
+        nav { display: flex; gap: 30px; }
+        nav a { text-decoration: none; color: #4b5563; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: #2563eb; }
+        .btn-contact { background: #2563eb; color: white !important; padding: 8px 20px; border-radius: 6px; }
+        .btn-contact:hover { background: #1d4ed8; }
+
+        /* Hero Section */
+        .hero { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; padding: 120px 5%; text-align: center; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 24px; letter-spacing: -1px; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto 40px; }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; }
+        .hero .btn { padding: 14px 32px; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 1.1rem; }
+        .hero .btn-primary { background: white; color: #1e3a8a; }
+        .hero .btn-outline { border: 2px solid white; color: white; }
+
+        /* Features */
+        .features-wrapper { padding: 100px 5%; background: white; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: #1f2937; margin-bottom: 16px; }
+        .section-title p { color: #6b7280; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+        
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .card { background: #f9fafb; padding: 40px; border-radius: 12px; border: 1px solid #e5e7eb; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .card-icon { width: 50px; height: 50px; background: #dbeafe; color: #2563eb; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .card h3 { margin-bottom: 12px; color: #111827; font-size: 1.3rem; }
+        .card p { color: #4b5563; }
+
+        /* Stats */
+        .stats { background: #1e3a8a; color: white; padding: 80px 5%; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 3rem; font-weight: bold; color: #60a5fa; margin-bottom: 8px; }
+        .stat-label { font-size: 1.1rem; opacity: 0.9; }
+
+        /* Footer */
+        footer { background: #111827; color: #9ca3af; padding: 60px 5% 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto 40px; }
+        .footer-col h4 { color: white; margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: #9ca3af; text-decoration: none; }
+        .footer-col a:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>Görüntülenen Model: <strong>Kurumsal Web Sitesi</strong></span>
+        <span class="badge">Toys e-Big Demo</span>
+        <a href="../index.html#modeller">&larr; Ana Sayfaya Dön</a>
+    </div>
+
+    <!-- MOCKUP CONTENT -->
+    <header>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 6l5.5 11h-11L12 8z"/></svg>
+            BüyükGrup
+        </div>
+        <nav>
+            <a href="#">Anasayfa</a>
+            <a href="#">Hakkımızda</a>
+            <a href="#">Hizmetlerimiz</a>
+            <a href="#">Referanslar</a>
+            <a href="#" class="btn-contact">İletişime Geç</a>
+        </nav>
+    </header>
+    
+    <div class="hero">
+        <h1>Geleceği Birlikte, Güvenle İnşa Ediyoruz</h1>
+        <p>Sektördeki 20 yıllık köklü tecrübemizle firmanızın dijital ve fiziksel altyapılarını uluslararası standartlarda kuruyoruz. Başarıya giden yolda güvenilir ortağınız.</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Hizmetlerimizi İnceleyin</a>
+            <a href="#" class="btn btn-outline">Biz Kimiz?</a>
+        </div>
+    </div>
+
+    <div class="features-wrapper">
+        <div class="section-title">
+            <h2>Neden Bizi Seçmelisiniz?</h2>
+            <p>İşletmenizi bir adım öteye taşıyacak profesyonel, şeffaf ve ölçülebilir kurumsal süreç yönetimi.</p>
+        </div>
+        <div class="features">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Stratejik Danışmanlık</h3>
+                <p>İşletmenizin yapısal ihtiyaçlarına özel sektörel araştırmalar, stratejik yönlendirmeler ve detaylı performans analiz raporları sunuyoruz.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Proje Yönetimi</h3>
+                <p>Karmaşık iş fikirlerinden son teslimata kadar tüm operasyonel süreci uzman kadromuzla şeffaf ve bütçe dahilinde yönetiyoruz.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <h3>Küresel Entegrasyon</h3>
+                <p>Uluslararası kalite standartlarında (ISO) çalışarak yerel markanızı güvenle dünya pazarına entegre edecek teknolojik altyapılar sağlıyoruz.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Yıllık Tecrübe</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Tamamlanan Proje</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">%98</div>
+            <div class="stat-label">Müşteri Memnuniyeti</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">30</div>
+            <div class="stat-label">Uzman Personel</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 style="display:flex; align-items:center; gap:8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 6l5.5 11h-11L12 8z"/></svg>
+                    BüyükGrup
+                </h4>
+                <p>Sürdürülebilir başarı için kurumsal çözümler.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Kurumsal</h4>
+                <ul>
+                    <li><a href="#">Hakkımızda</a></li>
+                    <li><a href="#">Vizyon & Misyon</a></li>
+                    <li><a href="#">Yönetim Kurulu</a></li>
+                    <li><a href="#">İnsan Kaynakları</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hizmetler</h4>
+                <ul>
+                    <li><a href="#">Finansal Danışmanlık</a></li>
+                    <li><a href="#">IT Çözümleri</a></li>
+                    <li><a href="#">Hukuki Süreçler</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>İletişim</h4>
+                <ul>
+                    <li>İstanbul, Türkiye</li>
+                    <li>info@buyukgrup.com.tr</li>
+                    <li>+90 (212) 000 00 00</li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid #374151; padding-top: 20px; font-size: 0.9rem;">
+            &copy; 2026 BüyükGrup Kurumsal A.Ş. Tüm hakları saklıdır.
+        </div>
+    </footer>
+</body>
+</html>

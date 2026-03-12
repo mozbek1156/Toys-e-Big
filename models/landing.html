@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Landing Page Modeli | Toys e-Big</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: #020617; color: #f8fafc; overflow-x: hidden; }
+        
+        /* Demo Bar */
+        .demo-bar { background: #0f172a; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; font-size: 0.9rem; border-bottom: 1px solid #1e293b;}
+        .demo-bar a { color: white; text-decoration: none; padding: 6px 16px; background: #334155; border-radius: 4px; transition: 0.2s; }
+        .demo-bar a:hover { background: #475569; }
+        .demo-bar .badge { background: #10b981; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Header */
+        header { padding: 80px 5% 20px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 10;}
+        .logo { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px;}
+        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 8px;}
+        .nav { display: flex; gap: 30px; font-weight: 500; font-size: 0.95rem; display: none;} /* Mobile first */
+        @media(min-width: 768px) { .nav { display: flex; } }
+        .nav a { color: #cbd5e1; text-decoration: none; transition: color 0.3s;}
+        .nav a:hover { color: white; }
+        .btn-login { background: rgba(255,255,255,0.1); color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: background 0.3s;}
+        .btn-login:hover { background: rgba(255,255,255,0.2); }
+
+        /* Hero */
+        .hero { min-height: 90vh; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 100px 5% 0; position: relative; }
+        
+        /* Glow Effects */
+        .hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: #3b82f6; border-radius: 50%; filter: blur(150px); opacity: 0.15; top: -10%; left: 50%; transform: translateX(-50%); z-index: -1;}
+        .hero::after { content: ''; position: absolute; width: 400px; height: 400px; background: #c084fc; border-radius: 50%; filter: blur(150px); opacity: 0.15; top: 20%; right: -10%; z-index: -1;}
+        
+        .hero-content { max-width: 900px; z-index: 1; }
+        
+        .badge-new { display: inline-flex; align-items: center; gap: 10px; padding: 8px 20px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 30px; backdrop-filter: blur(10px); cursor:pointer;}
+        .badge-new span { background: #3b82f6; color: white; padding: 2px 8px; border-radius: 50px; font-size: 0.75rem;}
+        
+        h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 30px; font-weight: 800; letter-spacing: -1px;}
+        h1 span { background: linear-gradient(135deg, #60a5fa, #c084fc); -webkit-background-clip: text; color: transparent; }
+        
+        p { font-size: clamp(1.1rem, 2vw, 1.3rem); color: #94a3b8; margin-bottom: 50px; max-width: 700px; margin-inline: auto; line-height: 1.6;}
+        
+        .cta-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 80px;}
+        .btn { padding: 18px 40px; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px;}
+        .btn-primary { background: white; color: #020617; box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3); }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);}
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);}
+
+        /* Dashboard Preview */
+        .dashboard-preview { width: 100%; max-width: 1100px; height: 600px; background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); border-radius: 20px 20px 0 0; border: 1px solid #334155; border-bottom: none; box-shadow: 0 -20px 50px rgba(0,0,0,0.5); position: relative; overflow: hidden; display: flex; flex-direction: column;}
+        .dash-header { padding: 15px 20px; border-bottom: 1px solid #334155; display: flex; gap: 8px;}
+        .dash-dot { width: 12px; height: 12px; border-radius: 50%; background: #ef4444;}
+        .dash-dot:nth-child(2) { background: #f59e0b;}
+        .dash-dot:nth-child(3) { background: #10b981;}
+        .dash-body { flex: 1; padding: 40px; background: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="%23334155"/></svg>'); display:grid; grid-template-columns: 250px 1fr; gap: 30px;}
+        
+        /* Fake Dashboard Elements */
+        .dash-sidebar { background: #1e293b; border-radius: 12px; border: 1px solid #334155; padding: 20px;}
+        .dash-line { height: 12px; background: #334155; border-radius: 6px; margin-bottom: 15px; width: 100%;}
+        .dash-line.short { width: 60%; }
+        .dash-main { display: grid; grid-template-rows: auto 1fr; gap: 20px;}
+        .dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;}
+        .dash-card { background: #1e293b; border-radius: 12px; border: 1px solid #334155; height: 100px; padding:20px; display:flex; flex-direction:column; justify-content:flex-end;}
+        .dash-graph { background: #1e293b; border-radius: 12px; border: 1px solid #334155; }
+
+        /* Social Proof */
+        .social-proof { padding: 40px 0; border-top: 1px solid #1e293b; width: 100%; position: relative; z-index: 20; background: #020617;}
+        .proof-text { text-align: center; color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px;}
+        .logos { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.5; filter: grayscale(100%);}
+        .logos h4 { font-size: 1.5rem; color: white;}
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>Görüntülenen Model: <strong>SaaS Landing Page</strong></span>
+        <span class="badge">Toys e-Big Demo</span>
+        <a href="../index.html#modeller">&larr; Ana Sayfaya Dön</a>
+    </div>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            Nexus
+        </div>
+        <nav class="nav">
+            <a href="#">Özellikler</a>
+            <a href="#">Fiyatlandırma</a>
+            <a href="#">Entegrasyonlar</a>
+            <a href="#">Müşteriler</a>
+        </nav>
+        <a href="#" class="btn-login">Giriş Yap</a>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="badge-new">
+                <span>YENİ</span> Nexus AI v2.0 Duyuruldu! Neler yeni görün &rarr;
+            </div>
+            <h1>Büyüyen Ekipler İçin <span>Akıllı İş Yönetimi</span></h1>
+            <p>Projelerinizi planlayın, takımınızla senkronize kalın ve iş süreçlerinizi yapay zeka destekli Nexus ile otomatikleştirin. Dağınıklığa son verin, büyümeye odaklanın.</p>
+            
+            <div class="cta-group">
+                <button class="btn btn-primary">
+                    Ücretsiz Başlayın
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <button class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Demoyu İzle
+                </button>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: -60px; margin-bottom: 60px;">Kredi kartı gerekmez. 14 gün ücretsiz deneme iptal edilebilir.</p>
+        </div>
+
+        <!-- Yarı saydam Dashboard mock-up -->
+        <div class="dashboard-preview">
+            <div class="dash-header">
+                <div class="dash-dot"></div>
+                <div class="dash-dot"></div>
+                <div class="dash-dot"></div>
+            </div>
+            <div class="dash-body">
+                <div class="dash-sidebar">
+                    <div class="dash-line"></div>
+                    <div class="dash-line short"></div>
+                    <div style="margin-top:40px;"></div>
+                    <div class="dash-line" style="opacity: 0.5;"></div>
+                    <div class="dash-line short" style="opacity: 0.5;"></div>
+                    <div class="dash-line" style="opacity: 0.5;"></div>
+                </div>
+                <div class="dash-main">
+                    <div class="dash-cards">
+                        <div class="dash-card">
+                            <div class="dash-line short" style="margin-bottom: 5px;"></div>
+                            <div style="font-size: 1.5rem; font-weight:bold; color:white;">2,405</div>
+                        </div>
+                        <div class="dash-card">
+                            <div class="dash-line short" style="margin-bottom: 5px;"></div>
+                            <div style="font-size: 1.5rem; font-weight:bold; color:white;">+48%</div>
+                        </div>
+                        <div class="dash-card" style="border: 1px solid #3b82f6; background: rgba(59, 130, 246, 0.1);">
+                            <div class="dash-line short" style="background:#3b82f6; margin-bottom: 5px;"></div>
+                            <div style="font-size: 1.5rem; font-weight:bold; color:#60a5fa;">Gelişim</div>
+                        </div>
+                    </div>
+                    <div class="dash-graph" style="display:flex; align-items:flex-end; padding:20px; gap:10px;">
+                        <div style="width:10%; background:#334155; height:30%; border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%; background:#334155; height:50%; border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%; background:#334155; height:40%; border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%; background:#334155; height:70%; border-radius:4px 4px 0 0;"></div>
+                        <div style="width:10%; background:#3b82f6; height:90%; border-radius:4px 4px 0 0; box-shadow: 0 0 20px rgba(59,130,246,0.5);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-proof">
+            <div class="proof-text">DÜNYANIN YENİLİKÇİ ŞİRKETLERİ TARAFINDAN GÜVENİLİYOR</div>
+            <div class="logos">
+                <h4>Acme Corp</h4>
+                <h4>GlobalBank</h4>
+                <h4>TechStart</h4>
+                <h4>InnovateAI</h4>
+                <h4>CloudSync</h4>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticaret Sitesi Modeli | Toys e-Big</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #f3f4f6; color: #1f2937; }
+        
+        /* Demo Bar */
+        .demo-bar { background: #1f2937; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-size: 0.9rem; }
+        .demo-bar a { color: white; text-decoration: none; padding: 6px 16px; background: #374151; border-radius: 4px; transition: 0.2s; }
+        .demo-bar a:hover { background: #4b5563; }
+        .demo-bar .badge { background: #10b981; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Top Bar */
+        .top-bar { background: #111827; color: #f9fafb; font-size: 0.8rem; text-align: center; padding: 8px; display: flex; justify-content: space-between; padding-left: 5%; padding-right: 5%;}
+        .top-bar span { margin-right: 15px; }
+
+        /* Header */
+        header { background: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; position: relative;}
+        .logo { font-size: 1.8rem; font-weight: 800; color: #ea580c; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        
+        .search-container { flex-grow: 1; max-width: 600px; margin: 0 40px; display: flex; align-items: center; border: 2px solid #ea580c; border-radius: 8px; overflow: hidden; background: white;}
+        .search-container select { padding: 12px; border: none; border-right: 1px solid #e5e7eb; background: #f9fafb; font-weight: 500; color: #4b5563; outline: none; cursor: pointer; }
+        .search-container input { flex-grow: 1; border: none; padding: 12px 15px; outline: none; font-size: 0.95rem; }
+        .search-container button { background: #ea580c; border: none; color: white; padding: 0 20px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+        .search-container button:hover { background: #c2410c; }
+        
+        .actions { display: flex; gap: 20px; align-items: center; }
+        .action-item { display: flex; flex-direction: column; align-items: center; color: #4b5563; text-decoration: none; font-size: 0.85rem; font-weight: 500;}
+        .action-icon { font-size: 1.4rem; margin-bottom: 2px; position: relative;}
+        .cart-badge { position: absolute; top: -5px; right: -8px; background: #ea580c; color: white; font-size: 0.7rem; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;}
+
+        /* Navigation */
+        .nav-menu { background: #fff; padding: 0 5%; display: flex; gap: 30px; border-bottom: 1px solid #e5e7eb; font-weight: 600; font-size: 0.95rem; }
+        .nav-menu a { color: #374151; text-decoration: none; padding: 15px 0; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .nav-menu a:hover, .nav-menu a.active { color: #ea580c; border-bottom-color: #ea580c; }
+        .nav-menu .categories-btn { background: #ea580c; color: white; padding: 15px 24px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+        /* Banner */
+        .banner { display: flex; padding: 20px 5%; gap: 20px; }
+        .main-banner { flex: 2; border-radius: 12px; overflow: hidden; position: relative; background: #ffedd5; display: flex; align-items: center; justify-content: space-between; padding: 40px; }
+        .banner-text { max-width: 50%; }
+        .banner-text h4 { color: #ea580c; font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; text-transform: uppercase; }
+        .banner-text h2 { color: #9a3412; font-size: 3rem; line-height: 1.1; margin-bottom: 20px; font-weight: 800; }
+        .banner-text p { color: #57534e; font-size: 1.1rem; margin-bottom: 30px; }
+        .btn-shop { background: #ea580c; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: 1rem; transition: background 0.2s; display: inline-block; }
+        .btn-shop:hover { background: #c2410c; }
+        .banner-img-ph { width: 300px; height: 300px; background: rgba(0,0,0,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ea580c; font-weight: bold; font-size: 1.5rem; text-align: center; padding: 20px;}
+        
+        .side-banners { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .side-banner { flex: 1; border-radius: 12px; background: #e0f2fe; padding: 30px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .side-banner:nth-child(2) { background: #fce7f3; }
+        .side-banner h3 { font-size: 1.5rem; color: #0f172a; margin-bottom: 15px; }
+        .side-banner .link-shop { color: #0284c7; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+        .side-banner:nth-child(2) .link-shop { color: #be185d; }
+
+        /* Trust Badges */
+        .trust-badges { background: white; padding: 25px 5%; display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; }
+        .trust-item { display: flex; align-items: center; gap: 15px; }
+        .trust-icon { font-size: 2rem; color: #ea580c; }
+        .trust-text strong { display: block; color: #111827; font-size: 0.95rem; }
+        .trust-text span { color: #6b7280; font-size: 0.85rem; }
+
+        /* Products Grid */
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 40px 5% 20px; }
+        .section-header h2 { font-size: 1.8rem; color: #1f2937; }
+        .view-all { color: #ea580c; font-weight: 600; text-decoration: none; font-size: 0.95rem; }
+        
+        .products { padding: 0 5% 60px; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: white; border-radius: 8px; border: 1px solid #e5e7eb; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; position: relative; display: flex; flex-direction: column;}
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        .discount-badge { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; z-index: 2; }
+        .p-image { height: 220px; background: #f9fafb; display: flex; align-items: center; justify-content: center; position: relative;}
+        .p-img-text { color: #9ca3af; font-weight: 500; font-size: 0.9rem; text-align: center; padding: 20px;}
+        .p-actions { position: absolute; bottom: -50px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; transition: bottom 0.3s; padding-bottom: 15px;}
+        .product-card:hover .p-actions { bottom: 0; }
+        .action-btn { width: 36px; height: 36px; border-radius: 50%; background: white; border: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #4b5563; font-size: 1.1rem; transition: background 0.2s, color 0.2s;}
+        .action-btn:hover { background: #ea580c; color: white; }
+        
+        .p-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .p-category { font-size: 0.8rem; color: #9ca3af; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .p-title { font-weight: 600; font-size: 1rem; color: #1f2937; margin-bottom: 10px; line-height: 1.4; flex-grow: 1; }
+        .p-rating { color: #fbbf24; font-size: 0.8rem; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .p-rating span { color: #6b7280; font-size: 0.75rem; }
+        .p-price-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .p-price { font-weight: 800; color: #ea580c; font-size: 1.3rem; }
+        .p-old-price { color: #9ca3af; text-decoration: line-through; font-size: 0.95rem; }
+        .btn-add { background: #f9fafb; color: #1f2937; border: 1px solid #e5e7eb; padding: 10px 0; width: 100%; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; font-size: 0.9rem;}
+        .btn-add:hover { background: #ea580c; color: white; border-color: #ea580c; }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>Görüntülenen Model: <strong>E-Ticaret Sitesi</strong></span>
+        <span class="badge">Toys e-Big Demo</span>
+        <a href="../index.html#modeller">&larr; Ana Sayfaya Dön</a>
+    </div>
+
+    <!-- MOCKUP CONTENT -->
+    <div class="top-bar">
+        <div>
+            <span>Müşteri Hizmetleri: 0850 123 45 67</span>
+            <span>📱 Mobil Uygulamamızı İndirin</span>
+        </div>
+        <div>
+            <a href="#" style="color:white; margin-right:15px; text-decoration:none;">Sipariş Takibi</a>
+            <a href="#" style="color:white; text-decoration:none;">Yardım & Destek</a>
+        </div>
+    </div>
+
+    <header>
+        <a href="#" class="logo">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="product-icon"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+            MegaSepet
+        </a>
+        
+        <div class="search-container">
+            <select>
+                <option>Tüm Kategoriler</option>
+                <option>Elektronik</option>
+                <option>Moda & Giyim</option>
+                <option>Ev & Yaşam</option>
+            </select>
+            <input type="text" placeholder="Aradığınız ürünü, markayı veya kategoriyi yazın...">
+            <button>ARA</button>
+        </div>
+        
+        <div class="actions">
+            <a href="#" class="action-item">
+                <div class="action-icon">👤</div>
+                <span>Hesabım</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-icon">❤️<div class="cart-badge" style="background:#3b82f6;">4</div></div>
+                <span>Favoriler</span>
+            </a>
+            <a href="#" class="action-item">
+                <div class="action-icon">🛒<div class="cart-badge">2</div></div>
+                <span>Sepetim</span>
+            </a>
+            <div style="margin-left:5px; text-align:right;">
+                <div style="font-size:0.75rem; color:#6b7280; font-weight:500;">Sepet Tutarı</div>
+                <div style="font-size:1.1rem; font-weight:700; color:#1f2937;">3.798 TL</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-menu">
+        <a href="#" class="categories-btn">
+            <span>☰</span> KATEGORİLER
+        </a>
+        <a href="#" class="active">Fırsat Ürünleri</a>
+        <a href="#">Çok Satanlar</a>
+        <a href="#">Elektronik</a>
+        <a href="#">Moda</a>
+        <a href="#">Ev & Yaşam</a>
+        <a href="#">Süpermarket</a>
+        <a href="#">Blog</a>
+    </div>
+
+    <div class="banner">
+        <div class="main-banner">
+            <div class="banner-text">
+                <h4>Haftanın Fırsatı</h4>
+                <h2>Yaz İndirimleri Başladı!</h2>
+                <p>Seçili elektronik ve giyim ürünlerinde sadece bu hafta sonuna özel %50'ye varan dev indirim fırsatlarını kaçırmayın.</p>
+                <a href="#" class="btn-shop">Hemen Alışverişe Başla &rarr;</a>
+            </div>
+            <div class="banner-img-ph">Büyük Kampanya Görseli (500x500px)</div>
+        </div>
+        <div class="side-banners">
+            <div class="side-banner">
+                <h3>Yeni Nesil<br>Akıllı Saatler</h3>
+                <a href="#" class="link-shop">Modelleri İncele &rarr;</a>
+            </div>
+            <div class="side-banner">
+                <h3>Kadın Moda<br>Yeni Sezon</h3>
+                <a href="#" class="link-shop">Koleksiyonu Gör &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="trust-badges">
+        <div class="trust-item">
+            <div class="trust-icon">🚚</div>
+            <div class="trust-text">
+                <strong>Ücretsiz Kargo</strong>
+                <span>500 TL üzeri alışverişlerde</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">🔁</div>
+            <div class="trust-text">
+                <strong>Kolay İade</strong>
+                <span>14 gün içinde koşulsuz</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">🛡️</div>
+            <div class="trust-text">
+                <strong>Güvenli Ödeme</strong>
+                <span>256-bit SSL şifreleme ile</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">📞</div>
+            <div class="trust-text">
+                <strong>7/24 Destek</strong>
+                <span>Müşteri hizmetleri hattımız</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>Çok Satan Ürünler</h2>
+        <a href="#" class="view-all">Tümünü Gör &rarr;</a>
+    </div>
+
+    <div class="products">
+        <!-- Ürün 1 -->
+        <div class="product-card">
+            <div class="discount-badge">-%15</div>
+            <div class="p-image">
+                <div class="p-actions">
+                    <button class="action-btn">❤️</button>
+                    <button class="action-btn">👁️</button>
+                    <button class="action-btn">🔄</button>
+                </div>
+                <div class="p-img-text">Kulaklık Görseli<br>(800x800)</div>
+            </div>
+            <div class="p-info">
+                <div class="p-category">Elektronik</div>
+                <h3 class="p-title">BT Wireless Pro Aktif Gürültü Engelleyici Kablosuz Kulaklık - Siyah</h3>
+                <div class="p-rating">★★★★★ <span>(128 Değerlendirme)</span></div>
+                <div class="p-price-wrap">
+                    <span class="p-price">1.299 TL</span>
+                    <span class="p-old-price">1.550 TL</span>
+                </div>
+                <button class="btn-add">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <!-- Ürün 2 -->
+        <div class="product-card">
+            <div class="p-image">
+                <div class="p-actions">
+                    <button class="action-btn">❤️</button>
+                    <button class="action-btn">👁️</button>
+                    <button class="action-btn">🔄</button>
+                </div>
+                <div class="p-img-text">Akıllı Saat Görseli<br>(800x800)</div>
+            </div>
+            <div class="p-info">
+                <div class="p-category">Giyilebilir Teknoloji</div>
+                <h3 class="p-title">Smart Watch Series 5 Su Geçirmez Nabız Ölçerli Titanyum Kasa</h3>
+                <div class="p-rating">★★★★☆ <span>(84 Değerlendirme)</span></div>
+                <div class="p-price-wrap">
+                    <span class="p-price">2.499 TL</span>
+                </div>
+                <button class="btn-add">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <!-- Ürün 3 -->
+        <div class="product-card">
+            <div class="discount-badge">-%30</div>
+            <div class="p-image">
+                <div class="p-actions">
+                    <button class="action-btn">❤️</button>
+                    <button class="action-btn">👁️</button>
+                    <button class="action-btn">🔄</button>
+                </div>
+                <div class="p-img-text">Sırt Çantası Görseli<br>(800x800)</div>
+            </div>
+            <div class="p-info">
+                <div class="p-category">Moda & Aksesuar</div>
+                <h3 class="p-title">Urban Explorer Su Geçirmez Laptop Bölmeli Seyahat Çantası</h3>
+                <div class="p-rating">★★★★★ <span>(412 Değerlendirme)</span></div>
+                <div class="p-price-wrap">
+                    <span class="p-price">699 TL</span>
+                    <span class="p-old-price">999 TL</span>
+                </div>
+                <button class="btn-add">Sepete Ekle</button>
+            </div>
+        </div>
+
+        <!-- Ürün 4 -->
+        <div class="product-card">
+            <div class="p-image">
+                <div class="p-actions">
+                    <button class="action-btn">❤️</button>
+                    <button class="action-btn">👁️</button>
+                    <button class="action-btn">🔄</button>
+                </div>
+                <div class="p-img-text">Kahve Makinesi<br>(800x800)</div>
+            </div>
+            <div class="p-info">
+                <div class="p-category">Elektrikli Ev Aletleri</div>
+                <h3 class="p-title">Barista Plus Espresso ve Cappuccino Makinesi - Çelik Gövde</h3>
+                <div class="p-rating">★★★★☆ <span>(56 Değerlendirme)</span></div>
+                <div class="p-price-wrap">
+                    <span class="p-price">4.850 TL</span>
+                </div>
+                <button class="btn-add">Sepete Ekle</button>
+            </div>
+        </div>
+        
+        <!-- Ürün 5 -->
+        <div class="product-card">
+            <div class="discount-badge">-%20</div>
+            <div class="p-image">
+                <div class="p-actions">
+                    <button class="action-btn">❤️</button>
+                    <button class="action-btn">👁️</button>
+                    <button class="action-btn">🔄</button>
+                </div>
+                <div class="p-img-text">Mekanik Klavye<br>(800x800)</div>
+            </div>
+            <div class="p-info">
+                <div class="p-category">Oyuncu Ekipmanları</div>
+                <h3 class="p-title">Pro Gamer RGB Mekanik Oyuncu Klavyesi (Red Switch) TR Layout</h3>
+                <div class="p-rating">★★★★★ <span>(218 Değerlendirme)</span></div>
+                <div class="p-price-wrap">
+                    <span class="p-price">1.199 TL</span>
+                    <span class="p-old-price">1.499 TL</span>
+                </div>
+                <button class="btn-add">Sepete Ekle</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog ve Haber Sitesi Modeli | Toys e-Big</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #fafafa; color: #374151; font-family: 'Inter', sans-serif; line-height: 1.6;}
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; color: #111827;}
+        
+        /* Demo Bar */
+        .demo-bar { background: #1f2937; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-size: 0.9rem; font-family: 'Inter', sans-serif; }
+        .demo-bar a { color: white; text-decoration: none; padding: 6px 16px; background: #374151; border-radius: 4px; transition: 0.2s; }
+        .demo-bar a:hover { background: #4b5563; }
+        .demo-bar .badge { background: #10b981; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+        
+        /* Top Bar */
+        .top-nav { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e5e7eb; font-size: 0.85rem; color: #6b7280; font-weight: 500;}
+        .socials { display: flex; gap: 15px; }
+
+        /* Header */
+        header { padding: 40px 0; text-align: center; border-bottom: 3px solid #111827; margin-bottom: 20px;}
+        .logo { font-size: 4rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 10px;}
+        .tagline { font-family: 'Inter', sans-serif; font-size: 1rem; color: #6b7280; text-transform: uppercase; letter-spacing: 2px;}
+
+        /* Navigation */
+        .main-nav { display: flex; justify-content: center; gap: 40px; padding: 20px 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 50px;}
+        .main-nav a { text-decoration: none; color: #111827; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.2s;}
+        .main-nav a:hover, .main-nav a.active { color: #dc2626; }
+
+        /* Layout Grid */
+        .layout { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; margin-bottom: 80px;}
+
+        /* Main Story */
+        .main-story { margin-bottom: 50px; }
+        .main-img { width: 100%; height: 500px; background: #e5e7eb; object-fit: cover; margin-bottom: 25px; transition: transform 0.3s; }
+        .img-wrap { overflow: hidden; margin-bottom: 25px; }
+        .img-wrap:hover .main-img { transform: scale(1.03); }
+        .post-cat { color: #dc2626; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 15px; display: block; letter-spacing: 1px;}
+        .main-title { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; font-weight: 900;}
+        .main-excerpt { font-size: 1.25rem; color: #4b5563; line-height: 1.7; margin-bottom: 25px; }
+        .meta { display: flex; align-items: center; gap: 15px; font-size: 0.9rem; color: #6b7280; }
+        .author-pic { width: 40px; height: 40px; border-radius: 50%; background: #d1d5db; }
+        
+        /* Sub Stories Grid */
+        .sub-stories { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .sub-story { border-top: 1px solid #e5e7eb; padding-top: 20px; }
+        .sub-img { width: 100%; height: 200px; background: #e5e7eb; margin-bottom: 15px; }
+        .sub-title { font-size: 1.5rem; line-height: 1.3; margin-bottom: 10px; font-weight: 700;}
+        .sub-excerpt { font-size: 1rem; color: #6b7280; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;}
+
+        /* Sidebar */
+        .sidebar { padding-left: 40px; border-left: 1px solid #e5e7eb; }
+        .widget { margin-bottom: 50px; }
+        .widget-title { font-size: 1.2rem; font-family: 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid #dc2626; padding-bottom: 10px; margin-bottom: 25px; font-weight: 700;}
+        
+        /* Trending List */
+        .trending-list { counter-reset: trending-counter; }
+        .trending-item { display: flex; gap: 20px; margin-bottom: 25px; align-items: flex-start; }
+        .trending-item::before { counter-increment: trending-counter; content: "0" counter(trending-counter); font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: #e5e7eb; line-height: 0.8; }
+        .trending-item h4 { font-size: 1.1rem; line-height: 1.4; margin-top: -5px; cursor:pointer;}
+        .trending-item h4:hover { color: #dc2626; }
+
+        /* Newsletter */
+        .newsletter { background: #111827; color: white; padding: 30px; text-align: center; }
+        .newsletter h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; }
+        .newsletter p { font-size: 0.95rem; color: #9ca3af; margin-bottom: 20px; }
+        .newsletter input { width: 100%; padding: 12px 15px; border: none; margin-bottom: 10px; font-family: 'Inter'; outline:none;}
+        .newsletter button { width: 100%; padding: 12px; background: #dc2626; color: white; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;}
+        .newsletter button:hover { background: #b91c1c; }
+
+        /* Footer */
+        footer { background: #111827; padding: 60px 0; color: #9ca3af; text-align: center; }
+        footer .logo { color: white; font-size: 2.5rem; margin-bottom: 20px; }
+        footer .nav { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-family: 'Inter'; font-weight: 500;}
+        footer .nav a { color: #d1d5db; text-decoration: none; }
+        footer .nav a:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>Görüntülenen Model: <strong>Blog & Haber Sitsei</strong></span>
+        <span class="badge">Toys e-Big Demo</span>
+        <a href="../index.html#modeller">&larr; Ana Sayfaya Dön</a>
+    </div>
+
+    <div class="container">
+        <div class="top-nav">
+            <div>12 Ekim 2026, Pazartesi</div>
+            <div class="socials">
+                <span>Facebook</span>
+                <span>Twitter</span>
+                <span>Instagram</span>
+                <span>Bülten</span>
+            </div>
+        </div>
+
+        <header>
+            <div class="logo">The Daily Chronicle</div>
+            <div class="tagline">Bağımsız • Objektif • Küresel Habercilik</div>
+        </header>
+
+        <nav class="main-nav">
+            <a href="#">Gündem</a>
+            <a href="#">Ekonomi</a>
+            <a href="#">Politika</a>
+            <a href="#" class="active">Teknoloji</a>
+            <a href="#">Bilim</a>
+            <a href="#">Kültür Sanat</a>
+            <a href="#">Yaşam</a>
+        </nav>
+
+        <div class="layout">
+            <main>
+                <article class="main-story">
+                    <div class="img-wrap">
+                        <div class="main-img" style="background: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1000&q=80') center/cover;"></div>
+                    </div>
+                    <span class="post-cat">Teknoloji Gündemi</span>
+                    <h1 class="main-title">Yapay Zeka, İş Dünyasını Nasıl Yeniden Şekillendiriyor? Yeni Döneme Hazır Mıyız?</h1>
+                    <p class="main-excerpt">Son on yılda yaşanan yapay zeka devrimi, şirketlerin karar alma süreçlerinden, müşteri hizmetlerine ve insan kaynakları uygulamalarına kadar her alanda köklü değişiklikler yaratıyor. Ekonomi uzmanları bu dönüşüme ayak uyduramayan şirketlerin risk altında olduğunu belirtiyor.</p>
+                    <div class="meta">
+                        <div class="author-pic" style="background: url('https://randomuser.me/api/portraits/women/44.jpg') center/cover;"></div>
+                        <div>
+                            <strong style="color: #111827;">Dr. Ayşe Demir</strong>
+                            <div>Teknoloji Editörü &bull; 5 dk okuma</div>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="sub-stories">
+                    <article class="sub-story">
+                        <div class="sub-img" style="background: url('https://images.unsplash.com/photo-1614729939124-03290b5609ce?w=600&q=80') center/cover;"></div>
+                        <span class="post-cat" style="font-size: 0.75rem;">Uzay & Bilim</span>
+                        <h3 class="sub-title">Yeniden Kullanılabilir Roketlerle Mars Görevi İçin Geri Sayım Başladı</h3>
+                        <p class="sub-excerpt">Özel uzay şirketlerinin ortaklaşa yürüttüğü yeni projede, ilk insanlı Mars misyonunun planlanandan 3 yıl daha erken gerçekleşebileceği açıklandı. Yörünge testleri devam ediyor.</p>
+                    </article>
+                    <article class="sub-story">
+                        <div class="sub-img" style="background: url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80') center/cover;"></div>
+                        <span class="post-cat" style="font-size: 0.75rem;">Sanat Eleştirisi</span>
+                        <h3 class="sub-title">Modern Sanatın Dijitalleşen Yüzü: Klasik Galericilik Ölüyor Mu?</h3>
+                        <p class="sub-excerpt">Sanal gerçeklik ve dijital mülkiyet kavramlarının sanat dünyasındaki yükselişi, geleneksel fiziksel müzayedeleri ve galeri kültürünü kökten değiştirmeye zorluyor.</p>
+                    </article>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <div class="widget">
+                    <h3 class="widget-title">Öne Çıkan Fikirler</h3>
+                    <div class="trending-list">
+                        <div class="trending-item">
+                            <div>
+                                <span class="post-cat" style="font-size: 0.7rem; color: #4b5563;">Ekonomi Yorumu</span>
+                                <h4>Merkez Bankası'nın faiz kararı sonrasında piyasaları ne bekliyor?</h4>
+                            </div>
+                        </div>
+                        <div class="trending-item">
+                            <div>
+                                <span class="post-cat" style="font-size: 0.7rem; color: #4b5563;">Sağlık & Yaşam</span>
+                                <h4>Günde 10 Bin Adım Efsanesi Nereden Geliyor? Bilimsel Gerçekler.</h4>
+                            </div>
+                        </div>
+                        <div class="trending-item">
+                            <div>
+                                <span class="post-cat" style="font-size: 0.7rem; color: #4b5563;">Kültür</span>
+                                <h4>Yılın En Çok Beklenen Kitap Uyarlaması Sinemalarda: Eleştirmenler Ortadan İkiye Bölündü</h4>
+                            </div>
+                        </div>
+                        <div class="trending-item">
+                            <div>
+                                <span class="post-cat" style="font-size: 0.7rem; color: #4b5563;">Otomotiv</span>
+                                <h4>Elektrikli Araç Pazarında Menzil Savaşları: Hangi Marka Liderliği Alacak?</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget newsletter">
+                    <h3>Gündemi Kaçırmayın</h3>
+                    <p>En önemli haberler, özel dosyalar ve uzman yorumları her sabah e-posta kutunuzda.</p>
+                    <form onsubmit="event.preventDefault();">
+                        <input type="email" placeholder="E-Posta Adresiniz" required>
+                        <button type="submit">Ücretsiz Abone Ol</button>
+                    </form>
+                    <p style="font-size: 0.75rem; margin-top: 15px; margin-bottom: 0;">Spam göndermiyoruz. İstediğiniz zaman ayrılabilirsiniz.</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="logo">The Daily Chronicle</div>
+            <div class="nav">
+                <a href="#">Hakkımızda</a>
+                <a href="#">Künye</a>
+                <a href="#">İletişim</a>
+                <a href="#">Reklam Verin</a>
+                <a href="#">Gizlilik Politikası</a>
+            </div>
+            <p>&copy; 2026 The Daily Chronicle Media. Tüm hakları saklıdır. İçerikler izinsiz kopyalanamaz.</p>
+        </div>
+    </footer>
+</body>
+</html>

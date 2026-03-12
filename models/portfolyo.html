@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolyo Sitesi Modeli | Toys e-Big</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; line-height: 1.7; }
+        h1, h2, h3, .logo { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Demo Bar */
+        .demo-bar { background: #000; color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; font-size: 0.9rem; border-bottom: 1px solid #334155;}
+        .demo-bar a { color: white; text-decoration: none; padding: 6px 16px; background: #334155; border-radius: 4px; transition: 0.2s; }
+        .demo-bar a:hover { background: #475569; }
+        .demo-bar .badge { background: #10b981; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+        
+        /* Layout */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+        
+        /* Header */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 40px 0; margin-bottom: 60px;}
+        .logo { font-weight: 700; font-size: 1.8rem; letter-spacing: -1px; position:relative; display:inline-block;}
+        .logo::after { content:''; position:absolute; right:-12px; bottom:8px; width:8px; height:8px; background:#8b5cf6; border-radius:50%;}
+        .nav { display: flex; gap: 40px; }
+        .nav a { color: #cbd5e1; text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: color 0.3s; position:relative;}
+        .nav a::after { content:''; position:absolute; left:0; bottom:-4px; width:0%; height:2px; background:#8b5cf6; transition:width 0.3s;}
+        .nav a:hover, .nav a.active { color: white; }
+        .nav a:hover::after, .nav a.active::after { width:100%; }
+        .btn-hire { border: 1px solid #cbd5e1; padding: 10px 24px; border-radius: 50px; font-weight: 500 !important; }
+        .btn-hire:hover { background: white; color: #0f172a !important; }
+        
+        /* Hero */
+        .hero { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .hero-tag { display: inline-block; padding: 8px 16px; border: 1px solid #334155; border-radius: 50px; color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; font-weight: 700;}
+        .hero h1 span { color: transparent; -webkit-text-stroke: 1px #8b5cf6; }
+        .hero p { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #94a3b8; max-width: 650px; margin-bottom: 50px; font-weight: 400;}
+        
+        /* Stats */
+        .stats { display: flex; gap: 60px; border-top: 1px solid #1e293b; padding-top: 40px; margin-bottom: 100px; }
+        .stat strong { display: block; font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #f8fafc; }
+        .stat span { color: #64748b; font-size: 0.95rem; }
+
+        /* Current Stack */
+        .stack { margin-bottom: 100px; }
+        .stack h3 { margin-bottom: 30px; font-size: 1.5rem; color: #e2e8f0; }
+        .tech-list { display: flex; gap: 15px; flex-wrap: wrap; }
+        .tech { padding: 12px 24px; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #cbd5e1; font-weight: 500; }
+
+        /* Portfolio */
+        .section-title { font-size: 3rem; margin-bottom: 50px; font-weight: 700; letter-spacing: -1px;}
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-bottom: 100px;}
+        .work { background: #1e293b; padding: 25px; border-radius: 20px; transition: transform 0.4s; cursor: pointer; border: 1px solid #334155;}
+        .work:hover { transform: translateY(-10px); background: #2dd4bf; border-color: #2dd4bf; }
+        .work-img { height: 350px; background: #0f172a; border-radius: 12px; margin-bottom: 25px; overflow: hidden; position: relative;}
+        .work-img::after { content: 'İncele ↗'; position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; opacity: 0; transition: opacity 0.3s; font-family: 'Space Grotesk'; font-weight: 600;}
+        .work:hover .work-img::after { opacity: 1; }
+        .work:hover .work-title, .work:hover .work-desc { color: #0f172a; }
+        .work-title { font-weight: 700; font-size: 1.8rem; margin-bottom: 10px; transition: color 0.3s;}
+        .work-tags { display: flex; gap: 10px; margin-bottom: 15px;}
+        .tag { padding: 4px 12px; background: rgba(255,255,255,0.1); border-radius: 50px; font-size: 0.8rem; }
+        .work:hover .tag { background: rgba(0,0,0,0.1); color: #0f172a; font-weight: 600;}
+        .work-desc { color: #94a3b8; transition: color 0.3s;}
+
+        /* Footer */
+        footer { padding: 80px 0 40px; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: flex-end; }
+        .contact-h { font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 30px; }
+        .email-link { font-size: 1.8rem; color: #8b5cf6; text-decoration: none; border-bottom: 2px solid #8b5cf6; padding-bottom: 5px; font-family: 'Space Grotesk'; }
+        .socials { display: flex; gap: 20px; }
+        .socials a { color: #cbd5e1; text-decoration: none; font-size: 1.1rem; }
+        .socials a:hover { color: white; }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>Görüntülenen Model: <strong>Portfolyo & Kişisel Web Sitesi</strong></span>
+        <span class="badge">Toys e-Big Demo</span>
+        <a href="../index.html#modeller">&larr; Ana Sayfaya Dön</a>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">OzanDev</div>
+            <div class="nav">
+                <a href="#" class="active">Projeler</a>
+                <a href="#">Hakkımda</a>
+                <a href="#">Deneyim</a>
+                <a href="#" class="btn-hire">İletişime Geç</a>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div>
+                <span class="hero-tag">👋 Merhaba, ben Ozan.</span>
+                <h1>Fikirleri Koda, Kodları <span>Harika Deneyimlere</span> Dönüştürüyorum.</h1>
+                <p>İstanbul merkezli Full Stack Geliştirici ve UX Tasarımcısıyım. 8 yıldır dijital ürünler tasarlayıp kodluyor, karmaşık problemleri sade ve zarif çözümlerle buluşturuyorum.</p>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="stat">
+                <strong>08+</strong>
+                <span>Yıllık Deneyim</span>
+            </div>
+            <div class="stat">
+                <strong>45+</strong>
+                <span>Başarılı Proje</span>
+            </div>
+            <div class="stat">
+                <strong>12</strong>
+                <span>Farklı Sektör</span>
+            </div>
+        </section>
+
+        <section class="stack">
+            <h3>Kullandığım Teknolojiler</h3>
+            <div class="tech-list">
+                <span class="tech">React & Next.js</span>
+                <span class="tech">TypeScript</span>
+                <span class="tech">Node.js</span>
+                <span class="tech">Python / Django</span>
+                <span class="tech">PostgreSQL</span>
+                <span class="tech">Figma (UI/UX)</span>
+                <span class="tech">AWS & Docker</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Seçilmiş Çalışmalar</h2>
+            
+            <div class="gallery">
+                <!-- Proje 1 -->
+                <div class="work">
+                    <div class="work-img" style="background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80') center/cover;"></div>
+                    <div class="work-tags">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Fintech</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <h3 class="work-title">FinDashboard Pro</h3>
+                    <p class="work-desc">Kurumsal şirketler için geliştirilmiş, gerçek zamanlı veri analizi ve raporlama sunan B2B finansal yönetim paneli arayüzü ve altyapısı.</p>
+                </div>
+                
+                <!-- Proje 2 -->
+                <div class="work">
+                    <div class="work-img" style="background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80') center/cover;"></div>
+                    <div class="work-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">E-Ticaret</span>
+                    </div>
+                    <h3 class="work-title">TrendyShop Mobile</h3>
+                    <p class="work-desc">Günde 100k+ aktif kullanıcısı olan e-ticaret platformunun iOS ve Android mobil uygulamalarının sıfırdan tasarlanıp kodlanması.</p>
+                </div>
+
+                <!-- Proje 3 -->
+                <div class="work">
+                    <div class="work-img" style="background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80') center/cover;"></div>
+                    <div class="work-tags">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">Sağlık</span>
+                    </div>
+                    <h3 class="work-title">MediCare Portal</h3>
+                    <p class="work-desc">Hastalar ile doktorları bir araya getiren, online randevu ve video görüşme imkanı sunan tele-sağlık platformu.</p>
+                </div>
+
+                <!-- Proje 4 -->
+                <div class="work">
+                    <div class="work-img" style="background: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80') center/cover;"></div>
+                    <div class="work-tags">
+                        <span class="tag">Webflow</span>
+                        <span class="tag">Kurumsal</span>
+                    </div>
+                    <h3 class="work-title">Nexus Ajans Sitesi</h3>
+                    <p class="work-desc">Ödüllü bir yaratıcı dijital ajans için hazırladığım dinamik, bol animasyonlu ve yüksek performanslı kurumsal web sitesi.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div>
+                <h2 class="contact-h">Bir projeniz mi var?<br>Birlikte çalışalım.</h2>
+                <a href="mailto:hello@ozandev.com" class="email-link">hello@ozandev.com</a>
+            </div>
+            <div>
+                <div class="socials" style="margin-bottom: 20px;">
+                    <a href="#">Github</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">X (Twitter)</a>
+                    <a href="#">Dribbble</a>
+                </div>
+                <p style="color: #64748b; font-size: 0.9rem; text-align: right;">&copy; 2026 OzanDev. Tüm hakları saklıdır.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
